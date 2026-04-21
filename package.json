@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build:online": "node -e \"console.log(process.env.DATABASE_URL)\" && tsc -b && vite build && lightfish-server build && lightfish-server db migrate"
+    "build:online": "node -e \"console.log(process.env.DATABASE_URL)\" && tsc -b && vite build && lightfish-server build && lightfish-server db push",
+    "test:migrate": "export DATABASE_URL=postgres://postgres:123456@39.106.133.129:5432/lf_db; node -e \"console.log(process.env.DATABASE_URL)\" && lightfish-server db push"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.3",
