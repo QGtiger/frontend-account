@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && lightfish-server build && lightfish-server db migrate",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:online": "node -e \"console.log(process.env.DATABASE_URL)\" && tsc -b && vite build && lightfish-server build && lightfish-server db migrate"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.3",

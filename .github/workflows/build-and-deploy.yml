@@ -60,7 +60,7 @@ jobs:
             export VITE_BASE_URL="/${APP_NAME}/${BUILD_VERSION}/"
           fi
           echo "VITE_BASE_URL=$VITE_BASE_URL"
-          pnpm build
+          pnpm build:online
 
       - name: Deploy to OSS
         env:
