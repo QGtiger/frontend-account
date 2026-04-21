@@ -1,0 +1,308 @@
+.lf-login-page {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 14%, rgb(124 58 237 / 16%), transparent 42%),
+    radial-gradient(circle at 82% 74%, rgb(37 99 235 / 15%), transparent 44%),
+    linear-gradient(165deg, #f6f8ff 0%, #eef2ff 46%, #f8faff 100%);
+  color: #0f172a;
+}
+
+.lf-login-background {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.lf-login-orb {
+  position: absolute;
+  width: clamp(12rem, 24vw, 22rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(10px);
+  opacity: 0.62;
+}
+
+.lf-login-orb--violet {
+  top: 8%;
+  left: -3%;
+  background: radial-gradient(circle, rgb(167 139 250 / 45%) 0%, rgb(124 58 237 / 6%) 72%);
+}
+
+.lf-login-orb--blue {
+  right: -5%;
+  bottom: 8%;
+  background: radial-gradient(circle, rgb(96 165 250 / 45%) 0%, rgb(56 189 248 / 5%) 70%);
+}
+
+.lf-login-grid {
+  position: absolute;
+  inset: -10%;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgb(99 102 241 / 14%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(99 102 241 / 14%) 1px, transparent 1px),
+    linear-gradient(130deg, transparent 35%, rgb(124 58 237 / 20%) 50%, transparent 65%);
+  background-size:
+    42px 42px,
+    42px 42px,
+    100% 100%;
+  transform: perspective(600px) rotateX(58deg) translateY(16%);
+  transform-origin: center bottom;
+}
+
+.lf-login-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 28rem);
+  border-radius: 1.25rem;
+  border: 1px solid rgb(165 180 252 / 30%);
+  background: linear-gradient(145deg, rgb(255 255 255 / 76%), rgb(245 248 255 / 64%));
+  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow:
+    0 0 0 1px rgb(96 165 250 / 12%),
+    0 20px 60px rgb(76 96 167 / 20%),
+    inset 0 1px 0 rgb(255 255 255 / 75%);
+  padding: clamp(1.3rem, 3vw, 2rem);
+}
+
+.lf-login-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  background: linear-gradient(120deg, rgb(56 189 248 / 26%), rgb(124 58 237 / 32%)) border-box;
+  mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.lf-login-header h1 {
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(1.45rem, 3.2vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.lf-login-header p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.5;
+  font-size: 0.92rem;
+}
+
+.lf-login-tag {
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 0.69rem;
+}
+
+.lf-login-form {
+  margin-top: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.lf-login-form .ant-form-item {
+  margin-bottom: 0;
+}
+
+.lf-login-form .ant-form-item-label {
+  padding-bottom: 0.35rem;
+}
+
+.lf-login-form .ant-form-item-label > label {
+  height: auto;
+  font-size: 0.78rem;
+  color: #334155;
+}
+
+.lf-login-form .ant-form-item-explain-error {
+  font-size: 0.76rem;
+  margin-top: 0.3rem;
+}
+
+.lf-login-form .ant-input-affix-wrapper,
+.lf-login-form .ant-input {
+  border: 1px solid rgb(148 163 184 / 42%);
+  border-radius: 0.8rem;
+  background: rgb(255 255 255 / 78%);
+  min-height: 2.75rem;
+  padding-inline: 0.95rem;
+}
+
+.lf-login-form .ant-input::placeholder {
+  color: #64748b;
+}
+
+.lf-login-form .ant-input-affix-wrapper .ant-input {
+  min-height: auto;
+  padding-inline: 0;
+}
+
+.lf-login-form .ant-input:focus,
+.lf-login-form .ant-input-affix-wrapper-focused {
+  border-color: rgb(96 165 250 / 75%);
+  box-shadow:
+    0 0 0 2px rgb(59 130 246 / 22%),
+    0 0 14px rgb(99 102 241 / 45%);
+  background: #ffffff;
+}
+
+.lf-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.lf-field > span {
+  font-size: 0.78rem;
+  color: #334155;
+}
+
+.lf-field input {
+  width: 100%;
+  border: 1px solid rgb(148 163 184 / 42%);
+  border-radius: 0.8rem;
+  background: rgb(255 255 255 / 78%);
+  color: #0f172a;
+  min-height: 2.75rem;
+  padding: 0 0.95rem;
+  outline: none;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
+.lf-field input::placeholder {
+  color: #64748b;
+}
+
+.lf-field input:focus-visible {
+  border-color: rgb(96 165 250 / 75%);
+  box-shadow:
+    0 0 0 2px rgb(59 130 246 / 22%),
+    0 0 14px rgb(99 102 241 / 45%);
+  background: #ffffff;
+}
+
+.lf-login-form-extra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.2rem;
+}
+
+.lf-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #334155;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.lf-checkbox .ant-checkbox-inner {
+  border-radius: 0.35rem;
+}
+
+.lf-checkbox.ant-checkbox-wrapper-checked .ant-checkbox-inner {
+  background-color: #7c3aed;
+  border-color: #7c3aed;
+}
+
+.lf-link-button {
+  border: 0;
+  background: transparent;
+  color: #2563eb;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.lf-link-button:hover {
+  color: #6d28d9;
+}
+
+.lf-link-button:focus-visible {
+  outline: 2px solid rgb(59 130 246 / 50%);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+.lf-login-submit {
+  margin-top: 0.35rem;
+  border: 0;
+  min-height: 2.85rem;
+  border-radius: 0.85rem;
+  color: #eff4ff;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(106deg, #1e3a8a, #5b21b6 52%, #1d4ed8);
+  background-size: 190% 100%;
+  box-shadow:
+    0 10px 25px rgb(37 99 235 / 35%),
+    0 0 0 1px rgb(191 219 254 / 20%);
+  transition:
+    transform 180ms ease,
+    box-shadow 220ms ease,
+    background-position 260ms ease;
+}
+
+.lf-login-submit.ant-btn-primary {
+  color: #eff4ff;
+}
+
+.lf-login-submit:hover {
+  background-position: 100% 0;
+  box-shadow:
+    0 14px 32px rgb(59 130 246 / 42%),
+    0 0 22px rgb(124 58 237 / 45%);
+}
+
+.lf-login-submit:active {
+  transform: translateY(1px);
+}
+
+.lf-login-submit:focus-visible {
+  outline: 2px solid rgb(147 197 253 / 75%);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .lf-login-page {
+    padding: 1rem;
+  }
+
+  .lf-login-card {
+    border-radius: 1rem;
+    padding: 1.2rem;
+  }
+
+  .lf-login-grid {
+    transform: perspective(520px) rotateX(63deg) translateY(20%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lf-login-submit,
+  .lf-field input,
+  .lf-link-button {
+    transition: none;
+  }
+}
