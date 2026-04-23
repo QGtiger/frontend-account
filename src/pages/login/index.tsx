@@ -3,6 +3,7 @@ import { useRequest } from 'ahooks'
 import { Button, Checkbox, Form, Input, message } from 'antd'
 
 import "./index.css";
+import { useSearchParams } from 'react-router-dom';
 
 type LoginFormValues = {
   username: string
@@ -12,14 +13,28 @@ type LoginFormValues = {
 
 type LoginResponse = {
   success: boolean
-  message: string
-  action?: 'login' | 'register'
+  message: string,
+  data: {
+    isNew:boolean,
+    userInfo: {
+      id: number
+    }
+  }
+}
+
+function setUrlParam(key: string, value: string, targetUrl: string = location.href) {
+  const url = new URL(targetUrl)
+  url.searchParams.set(key, value)
+  return url.toString()
 }
 
 export default function Login() {
   const [messageApi, messageContextHolder] = message.useMessage()
+  const [searchParams] = useSearchParams()
+  const redirect = decodeURIComponent(searchParams.get('redirect') || '')
+
   const { runAsync, loading } = useRequest(async (values: LoginFormValues) => {
-    const res = await apiRequest<LoginResponse>('/api/account/login', {
+    const {success, data, message} = await apiRequest<LoginResponse>('/api/account/login', {
       method: 'POST',
       data: {
         username: values.username,
@@ -27,12 +42,19 @@ export default function Login() {
       },
     })
 
-    if (res.success) {
-      messageApi.success('登录成功')
+    if (success) {
+      messageApi.success(data.isNew ? '用户已创建并登录' : '登录成功')
+      if (redirect) {
+        if (redirect.startsWith('http')) {
+          location.href = setUrlParam('token', data.userInfo.id.toString(), redirect)
+        } else {
+          location.href = redirect
+        }
+      }
       return
     }
 
-    messageApi.error(res.message || '登录失败')
+    messageApi.error(message || '登录失败')
   }, {
     manual: true,
   })
