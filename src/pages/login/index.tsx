@@ -17,7 +17,8 @@ type LoginResponse = {
   data: {
     isNew:boolean,
     userInfo: {
-      id: number
+      id: number,
+      username: string
     }
   }
 }
@@ -43,7 +44,7 @@ export default function Login() {
     })
 
     if (success) {
-      messageApi.success(data.isNew ? '用户已创建并登录' : '登录成功')
+      messageApi.success(data.isNew ? `用户 "${data.userInfo.username}" 已创建并登录`: '登录成功')
       if (redirect) {
         if (redirect.startsWith('http')) {
           location.href = setUrlParam('token', data.userInfo.id.toString(), redirect)
