@@ -55,7 +55,7 @@ export default function Login() {
       return
     }
 
-    messageApi.error(message || '登录失败')
+    messageApi.error(message || '登录失败！')
   }, {
     manual: true,
   })
