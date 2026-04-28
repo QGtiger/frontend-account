@@ -1,68 +1,77 @@
-import { apiRequest } from '@lightfish/server/api'
-import { useRequest } from 'ahooks'
-import { Button, Checkbox, Form, Input, message } from 'antd'
+import { apiRequest } from "@lightfish/server/api";
+import { useRequest } from "ahooks";
+import { Button, Checkbox, Form, Input, message } from "antd";
 
 import "./index.css";
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from "react-router-dom";
 
 type LoginFormValues = {
-  username: string
-  password: string
-  remember?: boolean
-}
+  username: string;
+  password: string;
+  remember?: boolean;
+};
 
-type LoginResponse = {
-  success: boolean
-  message: string,
-  data: {
-    isNew:boolean,
-    userInfo: {
-      id: number,
-      username: string
-    }
-  }
-}
-
-function setUrlParam(key: string, value: string, targetUrl: string = location.href) {
-  const url = new URL(targetUrl)
-  url.searchParams.set(key, value)
-  return url.toString()
+function setUrlParam(
+  key: string,
+  value: string,
+  targetUrl: string = location.href
+) {
+  const url = new URL(targetUrl);
+  url.searchParams.set(key, value);
+  return url.toString();
 }
 
 export default function Login() {
-  const [messageApi, messageContextHolder] = message.useMessage()
-  const [searchParams] = useSearchParams()
-  const redirect = decodeURIComponent(searchParams.get('redirect') || '')
+  const [messageApi, messageContextHolder] = message.useMessage();
+  const [searchParams] = useSearchParams();
+  const redirect = decodeURIComponent(searchParams.get("redirect") || "");
 
-  const { runAsync, loading } = useRequest(async (values: LoginFormValues) => {
-    const {success, data, message} = await apiRequest<LoginResponse>('/api/account/login', {
-      method: 'POST',
-      data: {
-        username: values.username,
-        password: values.password,
-      },
-    })
+  const { runAsync, loading } = useRequest(
+    async (values: LoginFormValues) => {
+      const { success, data, message } = await apiRequest<{
+        isNew: boolean;
+        userInfo: {
+          id: number;
+          username: string;
+        };
+      }>("/account/login", {
+        method: "POST",
+        data: {
+          username: values.username,
+          password: values.password,
+        },
+      });
 
-    if (success) {
-      messageApi.success(data.isNew ? `用户 "${data.userInfo.username}" 已创建并登录`: '登录成功')
-      if (redirect) {
-        if (redirect.startsWith('http')) {
-          location.href = setUrlParam('token', data.userInfo.id.toString(), redirect)
-        } else {
-          location.href = redirect
+      if (success) {
+        messageApi.success(
+          data.isNew
+            ? `用户 "${data.userInfo.username}" 已创建并登录`
+            : "登录成功"
+        );
+        if (redirect) {
+          if (redirect.startsWith("http")) {
+            location.href = setUrlParam(
+              "token",
+              data.userInfo.id.toString(),
+              redirect
+            );
+          } else {
+            location.href = redirect;
+          }
         }
+        return;
       }
-      return
-    }
 
-    messageApi.error(message || '登录失败！')
-  }, {
-    manual: true,
-  })
+      messageApi.error(message || "登录失败！");
+    },
+    {
+      manual: true,
+    }
+  );
 
   const handleFinish = async (values: LoginFormValues) => {
-    await runAsync(values)
-  }
+    await runAsync(values);
+  };
 
   return (
     <main className="lf-login-page">
@@ -91,9 +100,7 @@ export default function Login() {
             className="lf-field"
             label={<span>用户名</span>}
             name="username"
-            rules={[
-              { required: true, message: '请输入用户名' },
-            ]}
+            rules={[{ required: true, message: "请输入用户名" }]}
           >
             <Input
               size="large"
@@ -107,8 +114,8 @@ export default function Login() {
             label={<span>密码</span>}
             name="password"
             rules={[
-              { required: true, message: '请输入密码' },
-              { min: 6, message: '密码至少 6 位' },
+              { required: true, message: "请输入密码" },
+              { min: 6, message: "密码至少 6 位" },
             ]}
           >
             <Input.Password
@@ -140,5 +147,5 @@ export default function Login() {
         </Form>
       </section>
     </main>
-  )
+  );
 }

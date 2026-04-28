@@ -1,7 +1,7 @@
 import type { ContextWithDb } from "@lightfish/server";
 import { eq } from "drizzle-orm";
 
-import { usersTable } from "../../schema";
+import { usersTable } from "../../../schema";
 
 export default async function loginAPI(c: ContextWithDb) {
   const db = c.get("db");

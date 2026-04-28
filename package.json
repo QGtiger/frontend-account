@@ -12,6 +12,7 @@
     "test:migrate": "export DATABASE_URL=postgres://postgres:123456@39.106.133.129:5432/lf_db; node -e \"console.log(process.env.DATABASE_URL)\" && lightfish-server db push"
   },
   "dependencies": {
+    "@lightfish/server": "0.0.20",
     "@tailwindcss/vite": "^4.2.3",
     "ahooks": "^3.9.7",
     "ali-oss": "^6.23.0",
@@ -24,7 +25,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-    "@lightfish/server": "^0.0.4",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
